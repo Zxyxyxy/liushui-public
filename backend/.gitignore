@@ -1,0 +1,19 @@
+.env
+config.env
+__pycache__/
+*.pyc
+runs/
+
+# 真实简历放这儿 —— 个人信息，绝不进 git。
+# fixtures/ 里只放手造的假简历（那个目录是要提交的）。
+private/
+*.pdf
+*.docx
+
+# SQLite 数据库 — 用户评价和运行记录
+liushui.db
+liushui.db-shm
+liushui.db-wal
+
+# 用户上传的文件（含简历，个人信息）
+uploads_data/

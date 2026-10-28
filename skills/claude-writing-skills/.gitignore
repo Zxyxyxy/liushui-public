@@ -1,0 +1,27 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Obsidian (these belong in the writer's vault, not in the skills repo)
+.obsidian/
+.obsidian-cache/
+.trash/
+
+# OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Local content folders — the skills read from these but the content belongs to the writer
+Inbox/
+Reading notes/
+Writing/

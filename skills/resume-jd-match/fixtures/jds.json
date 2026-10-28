@@ -1,0 +1,87 @@
+[
+  {
+    "company": "百度",
+    "title": "地图搜索/推荐算法工程师（J84931）",
+    "location": "北京市",
+    "url": "https://talent.baidu.com/jobs/social-detail/8e7954cb-007c-4df7-8876-c3ad6b94c3dc",
+    "requirements_raw": "- 计算机相关专业，本科及以上学历\n-具备良好的算法和数据结构基础\n-熟练掌握至少一种编程语言（如C++、Python），有实际编码经验\n-对机器学习、数据挖掘或推荐系统有一定了解，有相关项目经验者优先",
+    "requirements": [
+      "计算机相关专业,本科及以上学历",
+      "具备良好的算法和数据结构基础",
+      "熟练掌握至少一种编程语言(如C++、Python),有实际编码经验",
+      "对机器学习、数据挖掘或推荐系统有一定了解,有相关项目经验者优先"
+    ],
+    "requirementCount": 4
+  },
+  {
+    "company": "字节跳动",
+    "title": "后端开发实习生-飞书应用引擎和大模型应用",
+    "location": "深圳",
+    "url": "https://jobs.bytedance.com/campus/position/7433304105617770778/detail",
+    "requirements_raw": "1、本科及以上学历在读，计算机相关专业优先；\n2、良好的设计和编码习惯，热爱写代码；\n3、熟练一种后端开发语言，如Go、Java等，掌握后端开发技术：协议、架构、存储、缓存、安全等；\n4、积极乐观，认真负责，乐于协作。",
+    "requirements": [
+      "本科及以上学历在读,计算机相关专业优先",
+      "良好的设计和编码习惯,热爱写代码",
+      "熟练一种后端开发语言,如Go、Java等,掌握后端开发技术:协议、架构、存储、缓存、安全等",
+      "积极乐观,认真负责,乐于协作"
+    ],
+    "requirementCount": 4
+  },
+  {
+    "company": "拼多多",
+    "title": "C端前端开发工程师/专家-基础电商与营销活动",
+    "location": "上海",
+    "url": "https://careers.pddglobalhr.com/jobs/detail?code=T022801",
+    "requirements_raw": "1. 计算机基础扎实 \n2. 至少掌握react/vue/angular主流框架中一种，理解框架背后的思想；\n\n加分项：\n1. 具有电商项目开发经验\n2. 具有 SEO 经验\n3. 具有 PWA 经验",
+    "requirements": [
+      "计算机基础扎实",
+      "至少掌握react/vue/angular主流框架中一种,理解框架背后的思想",
+      "具有电商项目开发经验",
+      "具有 SEO 经验",
+      "具有 PWA 经验"
+    ],
+    "requirementCount": 5
+  },
+  {
+    "company": "百度",
+    "title": "AI策略产品经理（J84249）",
+    "location": "北京市",
+    "url": "https://talent.baidu.com/jobs/social-detail/108d055d-57ed-4c4b-9543-28b80c6d4737",
+    "requirements_raw": "-本科及以上学历，工作时间3-5年\n-良好的逻辑分析及沟通表达能力；\n-学习能力强，抗压能力强。\n-关注新产品形态，掌握行业数据获取和分析能力；时刻关注AI时代前沿产品技术，能主动思考与业务结合应用。",
+    "requirements": [
+      "本科及以上学历,工作时间3-5年",
+      "良好的逻辑分析及沟通表达能力",
+      "学习能力强,抗压能力强",
+      "关注新产品形态,掌握行业数据获取和分析能力;时刻关注AI时代前沿产品技术,能主动思考与业务结合应用"
+    ],
+    "requirementCount": 4
+  },
+  {
+    "company": "字节跳动",
+    "title": "策略运营（数据分析方向）实习生 - 抖音游戏",
+    "location": "深圳",
+    "url": "https://jobs.bytedance.com/campus/position/7681244404699957509/detail",
+    "requirements_raw": "1、本科及以上学历在读；\n2、具备数据处理分析能力，有策略/内容运营/IP运营相关实习经验者优先；\n3、具备较强的理解与表达能力、项目管理能力，自驱力强、有责任心；\n4、能够连续实习，每周出勤4天优先。",
+    "requirements": [
+      "本科及以上学历在读",
+      "具备数据处理分析能力,有策略/内容运营/IP运营相关实习经验者优先",
+      "具备较强的理解与表达能力、项目管理能力,自驱力强、有责任心",
+      "能够连续实习,每周出勤4天优先"
+    ],
+    "requirementCount": 4
+  },
+  {
+    "company": "字节跳动",
+    "title": "测试开发专家-抖音",
+    "location": "北京",
+    "url": "https://jobs.bytedance.com/experienced/position/7621023329813662005/detail",
+    "requirements_raw": "1、计算机相关本科及以上学历，3年以上测试经验；  \n2、良好的代码基础，至少熟练掌握iOS/Java/Go/Python其中一种；  \n3、在快速迭代方面有自己一套完整的实施经验； \n4、有团队管理或者人才培养经验。",
+    "requirements": [
+      "计算机相关本科及以上学历,3年以上测试经验",
+      "良好的代码基础,至少熟练掌握iOS/Java/Go/Python其中一种",
+      "在快速迭代方面有自己一套完整的实施经验",
+      "有团队管理或者人才培养经验"
+    ],
+    "requirementCount": 4
+  }
+]

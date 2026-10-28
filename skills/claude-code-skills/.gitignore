@@ -1,0 +1,34 @@
+# Never publish the user's personal Claude Code config or live skills tree.
+# This repo's published content lives in skills/ (curated, scrubbed copies).
+.claude/
+
+# OS / editor cruft
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Personal config and credentials
+*.local.json
+*.env
+.env
+credentials/
+secrets/
+
+# Resumes / candidate data (job-finder skill)
+# Anyone testing job-finder against a real resume should not accidentally commit it.
+*Resume*.pdf
+*Resume*.docx
+*Resume*.png
+*Resume*.jpg
+*resume*.pdf
+*resume*.docx
+candidate_profile.json

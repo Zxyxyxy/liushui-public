@@ -1,0 +1,1 @@
+# 配置模板已改为 backend/.env.example，请看那个文件。

@@ -1,0 +1,20 @@
+{
+  "name": "claude-writing-skills",
+  "description": "Claude Code skills for running a writing publication — interview, outline, draft, coach, edit, source-check, top-edit, repurpose.",
+  "version": "0.1.0",
+  "author": "Nadiem Mahmoud",
+  "homepage": "https://github.com/nadiem99/claude-writing-skills",
+  "skills": [
+    "./skills/pipeline/interview",
+    "./skills/pipeline/outline",
+    "./skills/pipeline/draft",
+    "./skills/pipeline/coach",
+    "./skills/pipeline/edit",
+    "./skills/pipeline/source-check",
+    "./skills/pipeline/top-edit",
+    "./skills/pipeline/repurpose",
+    "./skills/support/research",
+    "./skills/support/status",
+    "./skills/support/setup"
+  ]
+}

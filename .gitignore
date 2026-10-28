@@ -1,0 +1,40 @@
+# ── 密钥：只放本机，永远不进仓库 ────────────────────────────
+.env
+.env.*
+!.env.example
+config.env
+*.local
+
+# ── 用户数据：数据库、上传的简历和证件 ─────────────────────
+*.db
+*.db-shm
+*.db-wal
+backend/uploads_data/
+backend/private/
+
+# ── 离线评测结果（体积大，可随时重跑） ─────────────────────
+backend/runs/
+
+# ── 依赖与构建产物 ──────────────────────────────────────────
+node_modules/
+dist/
+dist-ssr/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ── 系统与编辑器 ────────────────────────────────────────────
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.log
+*.swp
+
+# ── 导出文件：真实简历常以 PDF / Word 出现在工作目录里 ─────
+# skills/ 里的示例文件是要提交的，单独放行
+*.pdf
+*.docx
+!skills/**/*.pdf
+!skills/**/*.docx

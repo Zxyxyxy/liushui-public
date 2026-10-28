@@ -1,0 +1,374 @@
+@import 'tailwindcss';
+
+/* ============================================================
+   流水 · 设计系统
+   主题：流水不争先，争的是滔滔不绝
+   基色：#00b4d8 / #90e0ef / #caf0f8
+   ============================================================ */
+
+@theme {
+  /* 品牌水色阶 */
+  --color-water-50: #f2fcfe;
+  --color-water-100: #caf0f8;
+  --color-water-200: #ade8f4;
+  --color-water-300: #90e0ef;
+  --color-water-400: #48cae4;
+  --color-water-500: #00b4d8;
+  --color-water-600: #0096c7;
+  --color-water-700: #0077b6;
+  --color-water-800: #023e8a;
+  --color-water-900: #03045e;
+
+  /* 深水墨色（正文字色，不用纯黑，避免沉闷） */
+  --color-ink-900: #0a2540;
+  --color-ink-700: #1b3c5d;
+  --color-ink-500: #4a6b87;
+  --color-ink-400: #6b88a3;
+  --color-ink-300: #9db4c8;
+
+  /* 场景强调色（少量高识别度，与蓝色主调共存） */
+  --color-accent-coral: #ff8360;
+  --color-accent-sun: #ffc94b;
+  --color-accent-mint: #2ec4a6;
+  --color-accent-violet: #8b7cf6;
+
+  --font-sans:
+    'Inter', 'PingFang SC', 'HarmonyOS Sans SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', system-ui, sans-serif;
+
+  --radius-water: 1.25rem;
+
+  --shadow-water-sm: 0 2px 10px -2px rgb(0 119 182 / 0.10);
+  --shadow-water: 0 8px 30px -8px rgb(0 119 182 / 0.18);
+  --shadow-water-lg: 0 20px 60px -18px rgb(0 119 182 / 0.28);
+  --shadow-water-glow: 0 0 0 1px rgb(144 224 239 / 0.55), 0 12px 40px -12px rgb(0 180 216 / 0.4);
+
+  /* 动效 */
+  --animate-drift: drift 24s ease-in-out infinite;
+  --animate-drift-slow: drift 38s ease-in-out infinite reverse;
+  --animate-wave: wave 14s linear infinite;
+  --animate-wave-slow: wave 22s linear infinite reverse;
+  --animate-bob: bob 6s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.6s linear infinite;
+  --animate-rise: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-ripple-out: ripple-out 0.7s ease-out forwards;
+  --animate-caustic: caustic 18s ease-in-out infinite;
+  --animate-fill: fill 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  --animate-spin-slow: spin 3.2s linear infinite;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(4%, -3%, 0) scale(1.08);
+  }
+  66% {
+    transform: translate3d(-3%, 4%, 0) scale(0.95);
+  }
+}
+
+@keyframes wave {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ripple-out {
+  from {
+    transform: scale(0);
+    opacity: 0.45;
+  }
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+@keyframes caustic {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translate(-2%, 2%) scale(1.15) rotate(6deg);
+  }
+}
+
+@keyframes fill {
+  from {
+    height: 0%;
+  }
+}
+
+/* ---------- 基础 ---------- */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-water-50 text-ink-900 font-sans antialiased;
+    /* 明亮背景 + 极淡的水光，避免大白板的沉闷 */
+    background-image:
+      radial-gradient(1100px 600px at 12% -8%, rgb(202 240 248 / 0.85), transparent 60%),
+      radial-gradient(900px 520px at 92% 4%, rgb(144 224 239 / 0.45), transparent 62%),
+      radial-gradient(700px 700px at 50% 108%, rgb(173 232 244 / 0.35), transparent 65%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: var(--color-water-300);
+    color: var(--color-water-900);
+  }
+
+  /* 细水线滚动条 */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--color-water-300), var(--color-water-500));
+    border-radius: 99px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--color-water-400), var(--color-water-600));
+    background-clip: content-box;
+  }
+}
+
+/* ---------- 组件级工具类 ---------- */
+
+@layer components {
+  /* 水面玻璃卡片：半透明 + 上缘高光，像水的表面张力 */
+  .glass {
+    @apply relative rounded-water border border-white/70 bg-white/72 backdrop-blur-xl;
+    box-shadow: var(--shadow-water-sm);
+  }
+
+  .glass-deep {
+    @apply relative rounded-water border border-white/60 bg-white/85 backdrop-blur-2xl;
+    box-shadow: var(--shadow-water);
+  }
+
+  /* 卡片顶部的一道水线高光 */
+  .glass::before,
+  .glass-deep::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(255 255 255 / 0.95) 20%,
+      rgb(255 255 255 / 0.95) 80%,
+      transparent
+    );
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  /* 悬停时像被水托起 */
+  .lift {
+    transition:
+      transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.42s ease;
+  }
+  .lift:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-water-lg);
+    border-color: rgb(144 224 239 / 0.9);
+  }
+
+  /* 文字流动渐变 */
+  .text-flow {
+    background: linear-gradient(
+      100deg,
+      var(--color-water-700),
+      var(--color-water-500) 30%,
+      var(--color-water-300) 50%,
+      var(--color-water-500) 70%,
+      var(--color-water-700)
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 6s linear infinite;
+  }
+
+  /* 主按钮：液体渐变 + 掠过的光 */
+  .btn-water {
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300;
+    background: linear-gradient(115deg, var(--color-water-600), var(--color-water-500) 45%, var(--color-water-400));
+    box-shadow: 0 8px 24px -8px rgb(0 180 216 / 0.75);
+  }
+  .btn-water::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 20%, rgb(255 255 255 / 0.42) 50%, transparent 80%);
+    background-size: 220% 100%;
+    background-position: -120% 0;
+    transition: background-position 0.75s ease;
+  }
+  .btn-water:hover::after {
+    background-position: 220% 0;
+  }
+  .btn-water:hover {
+    box-shadow: 0 14px 34px -8px rgb(0 180 216 / 0.85);
+    transform: translateY(-1px);
+  }
+  .btn-water:active {
+    transform: translateY(0) scale(0.985);
+  }
+  .btn-water:disabled {
+    @apply cursor-not-allowed opacity-45;
+    box-shadow: none;
+    transform: none;
+  }
+
+  /* 次级按钮：水面描边 */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-water-200 bg-white/70 px-5 py-2.5 text-sm font-semibold text-water-700 backdrop-blur transition-all duration-300;
+  }
+  .btn-ghost:hover {
+    @apply border-water-400 bg-water-100/80 text-water-800;
+    transform: translateY(-1px);
+  }
+
+  .btn-quiet {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium text-ink-500 transition-colors duration-200;
+  }
+  .btn-quiet:hover {
+    @apply bg-water-100/70 text-water-700;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-water-200/80 bg-white/70 px-3 py-1 text-xs font-medium text-ink-500 transition-all duration-200;
+  }
+  .chip:hover {
+    @apply border-water-400 bg-water-100 text-water-700;
+  }
+  .chip-on {
+    @apply border-transparent bg-water-500 text-white;
+    box-shadow: 0 6px 16px -6px rgb(0 180 216 / 0.7);
+  }
+  .chip-on:hover {
+    @apply border-transparent bg-water-600 text-white;
+  }
+
+  .field {
+    @apply w-full rounded-2xl border border-water-200/90 bg-white/80 px-4 py-3 text-sm text-ink-900 outline-none transition-all duration-200 placeholder:text-ink-300;
+  }
+  .field:focus {
+    @apply border-water-400 bg-white;
+    box-shadow: 0 0 0 4px rgb(144 224 239 / 0.35);
+  }
+  /* 日期输入：去掉 Safari 的灰底和默认外观，和其他输入框一致；日历图标换成站内的水蓝色 */
+  input[type='date'].field {
+    -webkit-appearance: none;
+    appearance: none;
+    min-height: 2.5rem;
+    color: var(--color-ink-900);
+  }
+  input[type='date'].field::-webkit-date-and-time-value {
+    text-align: left;
+  }
+  input[type='date'].field::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.55;
+    filter: invert(48%) sepia(84%) saturate(2400%) hue-rotate(160deg) brightness(92%);
+  }
+  input[type='date'].field::-webkit-calendar-picker-indicator:hover {
+    opacity: 0.9;
+  }
+
+  /* 分区标题下的小水滴装饰线 */
+  .rule-water {
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-water-400), rgb(144 224 239 / 0.25), transparent);
+    border-radius: 99px;
+  }
+
+  .skeleton-water {
+    background: linear-gradient(
+      90deg,
+      rgb(202 240 248 / 0.55) 25%,
+      rgb(144 224 239 / 0.8) 50%,
+      rgb(202 240 248 / 0.55) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s linear infinite;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  /* 逐项入场：配合 style={{ '--i': n }} */
+  .stagger {
+    animation: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i, 0) * 55ms);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

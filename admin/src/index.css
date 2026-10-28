@@ -1,0 +1,516 @@
+@import 'tailwindcss';
+
+/* ============================================================
+   流水 · 管理后台设计系统
+
+   下面的 @theme 块从 app/src/index.css 原样搬过来，一个值都没改。
+   Tailwind v4 的 CSS-first 配置是纯 CSS，与框架无关，所以 React 前台
+   和 Vue 后台可以逐字共用同一套 token。
+
+   ⚠️ 改色板/阴影/动效请两边同步。没抽成共享文件是因为跨项目根
+   import 要开 Vite 的 server.fs.allow，为一个 demo 增加启动失败面；
+   前台原型已标记完成不再改动，漂移风险实际很低。后台转正时再抽。
+
+   本文件末尾的「后台密度层」是后台独有的，前台没有也不需要。
+   ============================================================ */
+
+@theme {
+  /* 品牌水色阶 */
+  --color-water-50: #f2fcfe;
+  --color-water-100: #caf0f8;
+  --color-water-200: #ade8f4;
+  --color-water-300: #90e0ef;
+  --color-water-400: #48cae4;
+  --color-water-500: #00b4d8;
+  --color-water-600: #0096c7;
+  --color-water-700: #0077b6;
+  --color-water-800: #023e8a;
+  --color-water-900: #03045e;
+
+  /* 深水墨色（正文字色，不用纯黑，避免沉闷） */
+  --color-ink-900: #0a2540;
+  --color-ink-700: #1b3c5d;
+  --color-ink-500: #4a6b87;
+  --color-ink-400: #6b88a3;
+  --color-ink-300: #9db4c8;
+
+  /* 场景强调色（少量高识别度，与蓝色主调共存） */
+  --color-accent-coral: #ff8360;
+  --color-accent-sun: #ffc94b;
+  --color-accent-mint: #2ec4a6;
+  --color-accent-violet: #8b7cf6;
+
+  --font-sans:
+    'Inter', 'PingFang SC', 'HarmonyOS Sans SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', system-ui, sans-serif;
+
+  --radius-water: 1.25rem;
+
+  --shadow-water-sm: 0 2px 10px -2px rgb(0 119 182 / 0.10);
+  --shadow-water: 0 8px 30px -8px rgb(0 119 182 / 0.18);
+  --shadow-water-lg: 0 20px 60px -18px rgb(0 119 182 / 0.28);
+  --shadow-water-glow: 0 0 0 1px rgb(144 224 239 / 0.55), 0 12px 40px -12px rgb(0 180 216 / 0.4);
+
+  /* 动效 */
+  --animate-drift: drift 24s ease-in-out infinite;
+  --animate-drift-slow: drift 38s ease-in-out infinite reverse;
+  --animate-wave: wave 14s linear infinite;
+  --animate-wave-slow: wave 22s linear infinite reverse;
+  --animate-bob: bob 6s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.6s linear infinite;
+  --animate-rise: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-ripple-out: ripple-out 0.7s ease-out forwards;
+  --animate-caustic: caustic 18s ease-in-out infinite;
+  --animate-fill: fill 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  --animate-spin-slow: spin 3.2s linear infinite;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(4%, -3%, 0) scale(1.08);
+  }
+  66% {
+    transform: translate3d(-3%, 4%, 0) scale(0.95);
+  }
+}
+
+@keyframes wave {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ripple-out {
+  from {
+    transform: scale(0);
+    opacity: 0.45;
+  }
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+@keyframes caustic {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translate(-2%, 2%) scale(1.15) rotate(6deg);
+  }
+}
+
+@keyframes fill {
+  from {
+    height: 0%;
+  }
+}
+
+/* ---------- 基础 ---------- */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-water-50 text-ink-900 font-sans antialiased;
+    /* 前台是三团大光斑铺满首屏。后台常驻侧栏 + 长表格，背景得更安静：
+       只保留左上角一团，强度减半，不然表格滚动时底下的渐变会跟着晃。 */
+    background-image:
+      radial-gradient(900px 480px at 8% -10%, rgb(202 240 248 / 0.55), transparent 62%),
+      radial-gradient(700px 420px at 98% 2%, rgb(144 224 239 / 0.22), transparent 64%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: var(--color-water-300);
+    color: var(--color-water-900);
+  }
+
+  /* 细水线滚动条 */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--color-water-300), var(--color-water-500));
+    border-radius: 99px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--color-water-400), var(--color-water-600));
+    background-clip: content-box;
+  }
+}
+
+/* ---------- 与前台同源的组件类 ---------- */
+
+@layer components {
+  /* 前台的 .glass / .glass-deep 原样保留：总览页、弹窗、抽屉仍然用它 */
+  .glass {
+    @apply relative rounded-water border border-white/70 bg-white/72 backdrop-blur-xl;
+    box-shadow: var(--shadow-water-sm);
+  }
+
+  .glass-deep {
+    @apply relative rounded-water border border-white/60 bg-white/85 backdrop-blur-2xl;
+    box-shadow: var(--shadow-water);
+  }
+
+  .glass::before,
+  .glass-deep::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(255 255 255 / 0.95) 20%,
+      rgb(255 255 255 / 0.95) 80%,
+      transparent
+    );
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .lift {
+    transition:
+      transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.42s ease;
+  }
+  .lift:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-water-lg);
+    border-color: rgb(144 224 239 / 0.9);
+  }
+
+  .text-flow {
+    background: linear-gradient(
+      100deg,
+      var(--color-water-700),
+      var(--color-water-500) 30%,
+      var(--color-water-300) 50%,
+      var(--color-water-500) 70%,
+      var(--color-water-700)
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 6s linear infinite;
+  }
+
+  .btn-water {
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300;
+    background: linear-gradient(115deg, var(--color-water-600), var(--color-water-500) 45%, var(--color-water-400));
+    box-shadow: 0 8px 24px -8px rgb(0 180 216 / 0.75);
+  }
+  .btn-water::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 20%, rgb(255 255 255 / 0.42) 50%, transparent 80%);
+    background-size: 220% 100%;
+    background-position: -120% 0;
+    transition: background-position 0.75s ease;
+  }
+  .btn-water:hover::after {
+    background-position: 220% 0;
+  }
+  .btn-water:hover {
+    box-shadow: 0 14px 34px -8px rgb(0 180 216 / 0.85);
+    transform: translateY(-1px);
+  }
+  .btn-water:active {
+    transform: translateY(0) scale(0.985);
+  }
+  .btn-water:disabled {
+    @apply cursor-not-allowed opacity-45;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-water-200 bg-white/70 px-5 py-2.5 text-sm font-semibold text-water-700 backdrop-blur transition-all duration-300;
+  }
+  .btn-ghost:hover {
+    @apply border-water-400 bg-water-100/80 text-water-800;
+    transform: translateY(-1px);
+  }
+
+  .btn-quiet {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium text-ink-500 transition-colors duration-200;
+  }
+  .btn-quiet:hover {
+    @apply bg-water-100/70 text-water-700;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-water-200/80 bg-white/70 px-3 py-1 text-xs font-medium text-ink-500 transition-all duration-200;
+  }
+  .chip:hover {
+    @apply border-water-400 bg-water-100 text-water-700;
+  }
+  .chip-on {
+    @apply border-transparent bg-water-500 text-white;
+    box-shadow: 0 6px 16px -6px rgb(0 180 216 / 0.7);
+  }
+  .chip-on:hover {
+    @apply border-transparent bg-water-600 text-white;
+  }
+
+  .field {
+    @apply w-full rounded-2xl border border-water-200/90 bg-white/80 px-4 py-3 text-sm text-ink-900 outline-none transition-all duration-200 placeholder:text-ink-300;
+  }
+  .field:focus {
+    @apply border-water-400 bg-white;
+    box-shadow: 0 0 0 4px rgb(144 224 239 / 0.35);
+  }
+
+  .rule-water {
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-water-400), rgb(144 224 239 / 0.25), transparent);
+    border-radius: 99px;
+  }
+
+  .skeleton-water {
+    background: linear-gradient(
+      90deg,
+      rgb(202 240 248 / 0.55) 25%,
+      rgb(144 224 239 / 0.8) 50%,
+      rgb(202 240 248 / 0.55) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s linear infinite;
+  }
+}
+
+/* ============================================================
+   后台密度层 —— 前台没有这一层
+
+   同一套色和同一套动效，但后台要连着看两百行审核队列，装饰必须降级：
+   玻璃提不透明度（13px 小字压在 72% 半透明上会发灰）、行高收紧、
+   表头粘住、数字等宽。气泡和点击涟漪整个后台都不用。
+   ============================================================ */
+
+/* ⚠️ 这一块是后台独有的中文排版覆盖，**不要**同步回前台。
+   Tailwind 的 leading/tracking 默认值是照拉丁文字调的：
+   - leading-relaxed 1.625 对 11–13px 汉字偏挤（汉字是满字身，没有 x-height 留出的空气）
+   - 字距默认 0，小字号汉字会糊成一片
+   前台正文 14–15px 用默认值没问题，后台压到 11–13px 就不行了。 */
+@theme {
+  --leading-relaxed: 1.8;
+  --leading-snug: 1.6;
+}
+
+@layer base {
+  /* 汉字需要一点正字距才透气，拉丁文和数字会跟着变宽一点点，可接受。
+     数字列另有 tabular-nums 保证对齐，不受影响。 */
+  body {
+    letter-spacing: 0.012em;
+  }
+
+  /* 标题反过来：汉字标题**不能**加负字距（Tailwind 的 tracking-tight 是 -0.025em，
+     那是给拉丁文大字号收紧用的，汉字会挤到笔画相碰）。这里归零并压行高。 */
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: 0;
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+
+  /* 避免末行掉单字 —— 中文段落尾巴上孤零零一个字最显廉价 */
+  p,
+  li {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* 后台卡片：.glass 的高可读版本。圆角从 1.25rem 收到 1rem，
+     因为后台一屏里卡片多，圆角太大会显得松散。 */
+  .panel {
+    @apply relative rounded-2xl border border-water-200/60 bg-white/92 backdrop-blur-md;
+    box-shadow: var(--shadow-water-sm);
+  }
+
+  .panel-head {
+    @apply flex items-center justify-between gap-3 border-b border-water-100 px-5 py-3.5;
+  }
+
+  /* 表格 ------------------------------------------------- */
+
+  /* 粘性表头能不能生效，取决于谁是它最近的滚动口。
+     外层 .panel 带 overflow-hidden（圆角要裁掉表格边缘），它就是那个滚动口，
+     而它自己不纵向滚 —— 于是表头跟着面板一起滚出去，表现是「滚到一半列名没了」。
+     所以让表格自己的外壳成为滚动口：内容超过一屏时在这里滚，表头贴的是它，才贴得住。
+     没超过一屏时不出滚动条，行为和原来一样。
+     也**不能**在这里加 overflow-x-auto —— 规范里一轴 auto 另一轴 visible 会被强制成
+     auto，那样又会多出一个不纵向滚动的滚动口。横向溢出交给外层主区。 */
+  .t-wrap {
+    @apply max-h-[calc(100dvh-19rem)] w-full overflow-y-auto;
+  }
+
+  /* border-separate 而不是 collapse：collapse 下 Chrome 不认表头单元格的 z-index，
+     粘性表头会被滚上来的行盖住（看着就是「滚到一半列名没了」）。
+     全表只用 border-b，相邻单元格不会出现双线，所以换成 separate 没有视觉代价。 */
+  table.t {
+    @apply w-full border-separate border-spacing-0 text-left;
+  }
+
+  /* 粘性表头：长队列滚动时必须还能看见列名 */
+  .t thead th {
+    @apply sticky top-0 z-10 whitespace-nowrap border-b border-water-200/70 bg-water-50/95 px-4 py-2.5
+           text-[11px] font-semibold tracking-wider text-ink-400 backdrop-blur;
+  }
+
+  .t tbody td {
+    @apply border-b border-water-100 px-4 py-0 text-[13px] text-ink-700 align-middle;
+  }
+
+  /* 行高 44px。前台卡片 hover 上浮 5px，表格行不能浮——只换底色，
+     否则两百行里任何一行的鼠标经过都会把整张表推得晃。 */
+  .t tbody tr {
+    @apply h-11 transition-colors duration-150;
+  }
+  .t tbody tr:hover {
+    @apply bg-water-50/80;
+  }
+  .t tbody tr.on {
+    @apply bg-water-100/70;
+  }
+  .t tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  /* 可排序表头 */
+  .th-sort {
+    @apply cursor-pointer select-none transition-colors;
+  }
+  .th-sort:hover {
+    @apply text-water-700;
+  }
+
+  /* 数字列：等宽 + 右对齐，结算账单要逐行竖着核 */
+  .num {
+    @apply text-right tabular-nums;
+  }
+
+  /* 状态点 */
+  .dot {
+    @apply inline-block h-1.5 w-1.5 shrink-0 rounded-full;
+  }
+
+  /* 后台的紧凑输入框：.field 的 py-3 在一行筛选器里太高 */
+  .field-sm {
+    @apply w-full rounded-xl border border-water-200/90 bg-white/85 px-3 py-1.5 text-[13px] text-ink-900
+           outline-none transition-all duration-200 placeholder:text-ink-300;
+  }
+  .field-sm:focus {
+    @apply border-water-400 bg-white;
+    box-shadow: 0 0 0 3px rgb(144 224 239 / 0.3);
+  }
+
+  /* 侧栏条目 */
+  .nav-item {
+    @apply flex items-center gap-2.5 rounded-xl px-3 py-2 text-[13px] font-medium text-ink-500
+           transition-all duration-200;
+  }
+  .nav-item:hover {
+    @apply bg-white/70 text-water-700;
+  }
+  .nav-item.on {
+    @apply bg-gradient-to-r from-water-500 to-water-400 font-semibold text-white;
+    box-shadow: 0 6px 16px -7px rgb(0 180 216 / 0.8);
+  }
+
+  /* 等宽代码片段：JD 原文、简历引用、artifact 类型名 */
+  .mono {
+    @apply rounded-md bg-water-50 px-1.5 py-0.5 font-mono text-[12px] text-water-800;
+  }
+
+  /* 引文块：简历/JD 原文，左侧一道水线 */
+  .quote {
+    @apply border-l-2 border-water-300 bg-water-50/70 py-2 pl-3 pr-2 text-[13px] leading-relaxed text-ink-700;
+  }
+
+  /* 卡片里的一句注解。全后台的小字注解走这一个类，行距字距只在这儿调。
+     刻意不给 max-w：注解现在都被压到一行内，撑不满也就不需要限宽。 */
+  .note {
+    @apply text-[11.5px] leading-relaxed text-ink-400;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 逐项入场延迟，配合 --animate-rise 使用 */
+  .stagger {
+    animation-delay: calc(var(--i, 0) * 55ms);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
